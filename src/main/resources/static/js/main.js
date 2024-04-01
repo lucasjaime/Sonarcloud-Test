@@ -2,8 +2,7 @@ let outputContainer = document.getElementById('output-container')
 let outputElement = document.getElementById('output')
 let errorContainer = document.getElementById('error-container')
 let errorElement = document.getElementById('error')
-
-
+let api_key = "apikey1234abcdefghij0123456789"
 
 function updateOutput(result) {
   // If there is any error, hide it first
