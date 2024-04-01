@@ -1,44 +1,36 @@
-# Vulnerable Java application
+Fase 1
 
-This repository contains a sample application, the "Websites Tester Service", that's vulnerable to a [Command Injection](https://owasp.org/www-community/attacks/Command_Injection) and [Server-Side Request Forgery (SSRF)](https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/) vulnerability.
+Levantar un EC2 en AWS (Capa FREE) con SonarQube
 
-> **Warning**
-> This application is purposely vulnerable and can trivially be hacked. Don't expose it to the Internet, and don't run it in a production environment.
-> Instead, you can run it locally on your machine, or in a cloud environment on a private VPC.
+Abrir un repositorio con un código vulnerable (ejemplo: https://github.com/snoopysecurity/Vulnerable-Code-Snippets o https://github.com/DataDog/vulnerable-java-application )
 
-## Running locally
+Armar una github action que ante una acción (PR) analice y devuelva la QG obtenida.
 
-1. Build the image locally, or use `ghcr.io/datadog/vulnerable-java-application`:
-2. Run:
+Fase 2
 
-```
-docker run --rm -p 8000:8000 ghcr.io/datadog/vulnerable-java-application
-```
+Commitear alguna “fake key” que pueda matchear con un regex de un verdadero secret de AWS key o GPAT.
 
-3. You can then access the web application at http://127.0.0.1:8000
+Realizar un script (no importa el lenguaje) que pueda mediante regex encontrar ese secreto en archivos de código. Esto debe correr de manera local sobre el repositorio descargado, no hace falta mayor automatización.
 
-## Running on Kubernetes
+Entregables:
 
-```
-kubectl run  vulnerable-application --port=8000 --expose=true --image ghcr.io/datadog/vulnerable-java-application
-kubectl port-forward pod/vulnerable-application 8000
-```
+Acceso al repositorio para revisar la github action.
 
-You can then access the web application at http://127.0.0.1:8000
+Posibilidad de ver el flujo en funcionamiento.
 
-## Exploitation
+Script para la obtención del secreto seleccionado.
 
-### Server-side request vulnerability
 
-1. Browse to http://127.0.0.1:8000/website.html
-2. Note how the input allows you to specify arbitrary URLs such as `http://google.com`, but also any internal IP such as `http://169.254.169.254/latest/meta-data/`
-3. When the applications is running in AWS, Azure or GCP, this can often be exploited to retrieve instance metadata credentials
+Fasae 1: Para la fase se abrió el segundo repositorio vulnerable mencionado como ejemplo una vez sincronizado con sonarcloud brindando correctamente lo secrets necesarios. Luego se creo una github action denominada "Sonarcloud Scan" la cual, al hacer un PR intentando subir código en una nueva Branch, analizará el código fuente y devolverá una QG.
+Para el Pull request test se resolvieron los issues solicitando el cambio de declaración de variables en javascript.
+![WhatsApp Image 2024-04-01 at 16 49 00_ffea09a6](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/1412dfde-f723-4a72-ba6b-34875d50e3bd)
+![WhatsApp Image 2024-04-01 at 16 49 57_e0fc6c88](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/9d49fc90-f533-4e77-8522-22ef97e710ae)
+![image](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/66a66906-16ef-446c-a357-0abf0c0ce6ce)
+![WhatsApp Image 2024-04-01 at 16 11 10_0302c84a](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/0b486dd3-67ac-4d5c-9cf9-a19ae9144e99)
+![image](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/542bf418-337e-4e15-9727-33c7132e5499)
 
-### Command injection vulnerability
+Fase 2: Para esta fase, fue declarada la variable api_key en "./vulnerable-java-application/src/main/resources/static/js" con un secret inventando en base a la información proporcionada por AWS. Para encontrar este secret mediante una regex se creo el script "regex.py" encontrado en la carpeta principal "./vulnerable-java-application". Para que este sricpt funcione correctamente, se deberá modificar la variable "ruta_repositorio" por el path donde se encuentre almacenado de forma local la modificación, es decir: "./vulnerable-java-application/src/main/resources/static/js". Un ejemplo de esto podría ser el que se encuentra por default en el script, recordar que en python el path debe estar separado por "/" o en su defecto "\\".
+![WhatsApp Image 2024-04-01 at 17 17 27_ea98b8e0](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/0192f91d-6a2d-4d57-b803-a1cb6df4ff2b)
+![WhatsApp Image 2024-04-01 at 18 31 40_ab30a4ed](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/6396ef3d-8993-45c1-824b-446ff02eccef)
+![WhatsApp Image 2024-04-01 at 17 24 02_19718113](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/1c0dd154-980d-4639-b4c7-dac633a27a7d)
 
-1. Browse to http://127.0.0.1:8000/index.html
-2. Note how the input allows you to specify domain names such as `google.com` and ping them
-3. Note that there is some level of input validation - entering `$(whoami)` returns `Invalid domain name: $(whoami) - don't try to hack us!`
-4. However, the validation is buggy - notice how you can start the input with a domain name, and execute and command in the container!
-
-![image](https://user-images.githubusercontent.com/136675/186954376-e3d82d03-7d9e-49b3-a106-6da080980dae.png)
