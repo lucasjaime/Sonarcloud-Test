@@ -11,5 +11,5 @@ def buscar_secreto(ruta_directorio, patron):
                         if re.search(patron, linea):
                             print(f'Secreto encontrado en {ruta_archivo}, línea {linea_numero}: {linea.strip()}')
 ruta_repositorio = "C:/Users/LuuuJ/Documents/Challenge técnico/vulnerable-java-application/src/main/resources/static/js"
-patron = r'apikey1234abcdefghij0123456789'
+patron = r'apikey1234abcdefghij01234567890'
 buscar_secreto(ruta_repositorio, patron)
