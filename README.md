@@ -21,7 +21,7 @@ Posibilidad de ver el flujo en funcionamiento.
 Script para la obtención del secreto seleccionado.
 
 
-Fasae 1: Para la fase se abrió el segundo repositorio vulnerable mencionado como ejemplo una vez sincronizado con sonarcloud brindando correctamente lo secrets necesarios. Luego se creo una github action denominada "Sonarcloud Scan" la cual, al hacer un PR intentando subir código en una nueva Branch, analizará el código fuente y devolverá una QG.
+Fasae 1: Para la primer fase, una vez sincronizado con sonarcloud brindando correctamente lo secrets necesarios, se abrió el segundo repositorio vulnerable mencionado como ejemplo. Luego se creo una github action denominada "Sonarcloud Scan" la cual, al hacer un PR intentando subir código en una nueva Branch, analizará el código fuente y devolverá una QG.
 Para el Pull request test se resolvieron los issues solicitando el cambio de declaración de variables en javascript.
 ![WhatsApp Image 2024-04-01 at 16 49 00_ffea09a6](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/1412dfde-f723-4a72-ba6b-34875d50e3bd)
 ![WhatsApp Image 2024-04-01 at 16 49 57_e0fc6c88](https://github.com/lucasjaime/Sonarcloud-Test/assets/94329292/9d49fc90-f533-4e77-8522-22ef97e710ae)
