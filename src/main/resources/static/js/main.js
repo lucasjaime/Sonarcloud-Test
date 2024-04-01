@@ -1,10 +1,7 @@
-var outputContainer = document.getElementById('output-container')
-var outputElement = document.getElementById('output')
-var errorContainer = document.getElementById('error-container')
-var errorElement = document.getElementById('error')
-
-
-let name = "lucasjaime"
+let outputContainer = document.getElementById('output-container')
+let outputElement = document.getElementById('output')
+let errorContainer = document.getElementById('error-container')
+let errorElement = document.getElementById('error')
 
 
 
@@ -23,7 +20,7 @@ function handleError(error) {
 }
 
 function submitRequest() {
-  var domainName = document.getElementById('domain').value
+  let domainName = document.getElementById('domain').value
   if (!domainName) {
     alert("Please enter a domain name")
     return
@@ -40,5 +37,5 @@ function submitRequest() {
   })
 }
 
-var form = document.querySelectorAll('form')[0]
+let form = document.querySelectorAll('form')[0]
 form.addEventListener('submit', function(evt) { evt.preventDefault(); submitRequest(); })
