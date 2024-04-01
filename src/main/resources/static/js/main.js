@@ -37,5 +37,5 @@ function submitRequest() {
   })
 }
 
-let form = document.querySelectorAll('form')[0]
+var form = document.querySelectorAll('form')[0]
 form.addEventListener('submit', function(evt) { evt.preventDefault(); submitRequest(); })
