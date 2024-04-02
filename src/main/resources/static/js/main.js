@@ -3,6 +3,7 @@ let outputElement = document.getElementById('output')
 let errorContainer = document.getElementById('error-container')
 let errorElement = document.getElementById('error')
 let api_key = "apikey1234abcdefghij01234567890"
+let variable = "Variable declarada para generar un cambio"
 
 function updateOutput(result) {
   // If there is any error, hide it first
